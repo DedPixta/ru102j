@@ -9,6 +9,7 @@ import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Tuple;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -175,7 +176,7 @@ public class MetricDaoRedisZsetImpl implements MetricDao {
         public MeasurementMinute(Double measurement, Integer minuteOfDay) {
             this.measurement = measurement;
             this.minuteOfDay = minuteOfDay;
-            this.decimalFormat = new DecimalFormat("#.##");
+            this.decimalFormat = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.ENGLISH));
         }
 
         public Integer getMinuteOfDay() {
