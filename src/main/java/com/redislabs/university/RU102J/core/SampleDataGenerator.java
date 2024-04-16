@@ -5,6 +5,9 @@ import com.redislabs.university.RU102J.dao.*;
 import com.redislabs.university.RU102J.resources.MeterReadingResource;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.exceptions.JedisConnectionException;
+import redis.clients.jedis.exceptions.JedisDataException;
+import redis.clients.jedis.exceptions.JedisException;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -35,7 +38,7 @@ public class SampleDataGenerator {
 
         SiteStatsDao siteStatsDao = new SiteStatsDaoRedisImpl(jedisPool);
         CapacityDao capacityDao = new CapacityDaoRedisImpl(jedisPool);
-        MetricDao metricDao = new MetricDaoRedisZsetImpl(jedisPool);
+        MetricDao metricDao = new MetricDaoRedisTSImpl(jedisPool);
         FeedDao feedDao = new FeedDaoRedisImpl(jedisPool);
         MeterReadingResource meterResource = new MeterReadingResource(siteStatsDao, metricDao,
                 capacityDao, feedDao);
